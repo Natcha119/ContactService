@@ -27,15 +27,29 @@ import entity.Contact;
 import entity.JettyMain;
 import contact.service.mem.MemContactDao;
 
-
+/**
+ * This class use for testing HTTP method for
+ * contactDao, which contain the test for GET PUT POST DELTE
+ * and have two cases for each test(PASS or FAIL)
+ * @author Natcha Chidchob 5510546026
+ * @version 27.9.2014
+ */
 public class ContactDaoTest {
+	/**the contactDao we interest*/
 	ContactDao dao;
+	/**contact number1*/
 	Contact contact1;
+	/**contact number2*/
 	Contact contact2;
+	/**contact number3*/
 	Contact contact3;
-	private static String serviceUrl;
+	/**client for http*/
 	private static HttpClient client;
 	
+	/**
+	 * Set up contactDao to be MemContactDao
+	 * and set example contact for test.
+	 */
 	@Before
 	public void setUp() {
 		// create a new DAO for each test and create some sample contacts
@@ -45,36 +59,67 @@ public class ContactDaoTest {
 		contact3 = new Contact("contact3", "Foo Bar", "foo@barclub.com");
 	}
 	
+	/**
+	 * Save all example contacts
+	 */
 	private void saveAllContacts() {
 		dao.save(contact1);
 		dao.save(contact2);
 		dao.save(contact3);
 	}
 	
+	/**
+	 * Run server and client
+	 * @throws Exception
+	 */
 	@BeforeClass
 	public static void doFirst() throws Exception {
-		serviceUrl = JettyMain.startServer(8080);
+		JettyMain.startServer(8080);
 		client = new HttpClient();
 		client.start();
 	}
 	
+	/**
+	 * Close the server
+	 */
 	@AfterClass
 	public static void doLast() {
 		JettyMain.stopServer();
 	}
 	
+	/**
+	 * To test GET method in case of PASS
+	 * by getting contact id is 1
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 * @throws TimeoutException
+	 */
 	@Test
 	public void testPassGet() throws InterruptedException, ExecutionException, TimeoutException {
 		ContentResponse resp = client.GET("http://localhost:8080/"+"contacts/1");
 		assertEquals("Return 200 OK, GET test PASS", Status.OK.getStatusCode(), resp.getStatus());
 	}
 	
+	/**
+	 * To test GET method in case of FAIL
+	 * by getting not existing contact id
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 * @throws TimeoutException
+	 */
 	@Test
 	public void testFailGet() throws InterruptedException, ExecutionException, TimeoutException {
 		ContentResponse resp = client.GET("http://localhost:8080/"+"contacts/12");
 		assertEquals("Return 204 No Content, GET test FAIL!", Status.NO_CONTENT.getStatusCode(), resp.getStatus());
 	}
 	
+	/**
+	 * To test POST method in case of PASS
+	 * by POST the new contact with new id
+	 * @throws InterruptedException
+	 * @throws TimeoutException
+	 * @throws ExecutionException
+	 */
 	@Test
 	public void testPassPost() throws InterruptedException, TimeoutException, ExecutionException {
 		 StringContentProvider message = new StringContentProvider("<contact id=\"5\">" +
@@ -91,6 +136,13 @@ public class ContactDaoTest {
 		 assertEquals("Return 201 Created, Create new contact", Status.CREATED.getStatusCode(), resp.getStatus());
 	}
 	
+	/**
+	 * To test POST method in case of FAIL
+	 * by POST the new contact with existing id
+	 * @throws InterruptedException
+	 * @throws TimeoutException
+	 * @throws ExecutionException
+	 */
 	@Test
 	public void testFailPost() throws InterruptedException, TimeoutException, ExecutionException {
 		 StringContentProvider message = new StringContentProvider("<contact id=\"1\">" +
@@ -107,6 +159,13 @@ public class ContactDaoTest {
 		 assertEquals("Return 409 CONFLICT", Status.CONFLICT.getStatusCode(), resp.getStatus());
 	}
 	
+	/**
+	 * To test PUT method in case of PASS
+	 * by update contact with existing id
+	 * @throws InterruptedException
+	 * @throws TimeoutException
+	 * @throws ExecutionException
+	 */
 	@Test
 	public void testPassPut() throws InterruptedException, TimeoutException, ExecutionException {
 		StringContentProvider content = new StringContentProvider("<contact id=\"1\">" +
@@ -123,6 +182,13 @@ public class ContactDaoTest {
 		assertEquals("Return 200 OK, PUT test PASS", Status.OK.getStatusCode(), resp.getStatus());
 	}
 
+	/**
+	 * To test PUT method in case of FAIL
+	 * by update contact with not existing id
+	 * @throws InterruptedException
+	 * @throws TimeoutException
+	 * @throws ExecutionException
+	 */
 	@Test
 	public void testFailPut() throws InterruptedException, TimeoutException, ExecutionException {
 		StringContentProvider content = new StringContentProvider("<contact/123>" +
@@ -139,6 +205,13 @@ public class ContactDaoTest {
 		assertEquals("Return BAD REQUEST, PUT test FAIL!", Status.BAD_REQUEST.getStatusCode(), resp.getStatus());
 	}
 	
+	/**
+	 * To test DELETE method in case of PASS
+	 * by delete contact with existing id
+	 * @throws InterruptedException
+	 * @throws TimeoutException
+	 * @throws ExecutionException
+	 */
 	@Test 
 	public void testPassDel() throws InterruptedException, TimeoutException, ExecutionException {
 		Request req = client.newRequest("http://localhost:8080/"+"contacts/5");
@@ -149,6 +222,13 @@ public class ContactDaoTest {
 		assertEquals("Return 200 OK, DELETE test PASS", Status.OK.getStatusCode(), resp.getStatus());
 	}
 	
+	/**
+	 * To test DELETE method in case of FAIL
+	 * by delete contact with not existing id
+	 * @throws InterruptedException
+	 * @throws TimeoutException
+	 * @throws ExecutionException
+	 */
 	@Test
 	public void testFailDel() throws InterruptedException, TimeoutException, ExecutionException {
 		Request req = client.newRequest("http://localhost:8080/"+"contacts/9999");
