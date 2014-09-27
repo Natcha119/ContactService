@@ -73,7 +73,9 @@ public class ContactResource {
 	@Produces(MediaType.APPLICATION_XML)
 	public Response getContact(@PathParam("id") long id ) {
 		contact = dao.find(id);
-		return Response.ok(contact).build();
+		if(contact != null)
+			return Response.ok(contact).build();
+		return Response.noContent().build();
 	}
 
 	/*
@@ -110,8 +112,13 @@ public class ContactResource {
 	JAXBElement<Contact> element, @Context UriInfo uriInfo ) throws URISyntaxException 
 	{
 		Contact contact = element.getValue();
-		dao.save( contact );
-		return Response.created(new URI("http://localhost:8080/contacts/"+contact.getId())).build();
+		if(dao.find(contact.getId()) == null){
+			boolean is_save = dao.save( contact );
+			if(is_save)
+				return Response.created(new URI("http://localhost:8080/contacts/"+contact.getId())).build();
+			return Response.status(Status.BAD_REQUEST).build();
+		}
+		return Response.status(Status.CONFLICT).build();
 	}
 	
 	/*
@@ -122,16 +129,19 @@ public class ContactResource {
 	 */
 	@PUT
 	@Path("{id}")
-	@Consumes( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON } )
+	@Consumes( MediaType.APPLICATION_XML)
+	@Produces({ MediaType.APPLICATION_XML })
 	public Response put( 
 	JAXBElement<Contact> element, @Context UriInfo uriInfo,@PathParam("id") long id ) throws URISyntaxException 
 	{
 		Contact contact = element.getValue();
-		contact.setId(id);
-		dao.update( contact );
-		
-
-		return Response.created(new URI("http://localhost:8080/contacts/"+contact.getId())).build();
+		boolean is_update = false;
+		if(contact.getId() == id){
+			is_update = dao.update( contact );
+			if(is_update)
+				return Response.ok().build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
 	}
 	
 	/*
@@ -140,9 +150,14 @@ public class ContactResource {
 	 */
 	@DELETE
 	@Path("{id}")
-	public void del(@PathParam("id") long id)
+	public Response del(@PathParam("id") long id)
 	{
-		dao.delete(id);
+		if(dao.find(id) != null){
+			dao.delete(id);
+			return Response.ok().build();
+		}
+		else
+			return Response.status(Status.BAD_REQUEST).build();
 	}
 	
 }
