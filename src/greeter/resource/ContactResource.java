@@ -145,7 +145,7 @@ public class ContactResource {
 	}
 	
 	/*
-	 * Delete contact by id
+	 * Delete contact by id.
 	 * @param contact id
 	 */
 	@DELETE
