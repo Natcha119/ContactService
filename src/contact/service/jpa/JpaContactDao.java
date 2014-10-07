@@ -1,18 +1,29 @@
 package contact.service.jpa;
 
 import java.util.*;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 277beb88cb230902f6a4656fa331e45c985f9eea
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+<<<<<<< HEAD
 import contact.entity.Contact;
 import contact.service.ContactDao;
 
 import java.util.logging.Logger;
 
 import jersey.repackaged.com.google.common.collect.Lists;
+=======
+import java.util.logging.Logger;
+
+import jersey.repackaged.com.google.common.collect.Lists;
+import entity.Contact;
+import service.ContactDao;
+>>>>>>> 277beb88cb230902f6a4656fa331e45c985f9eea
 
 /**
  * Data access object for saving and retrieving contacts,

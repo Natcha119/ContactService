@@ -7,7 +7,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+<<<<<<< HEAD
 import contact.entity.Contact;
+=======
+import entity.Contact;
+>>>>>>> 277beb88cb230902f6a4656fa331e45c985f9eea
 /**
  * This class use for make common ArrayList
  * to store XML object

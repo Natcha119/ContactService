@@ -8,6 +8,11 @@ import java.util.concurrent.TimeoutException;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.Response.Status;
 
+<<<<<<< HEAD
+=======
+import greeter.resource.ContactResource;
+
+>>>>>>> 277beb88cb230902f6a4656fa331e45c985f9eea
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.ContentResponse;
 import org.eclipse.jetty.client.api.Request;
@@ -19,10 +24,17 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+<<<<<<< HEAD
 import contact.entity.Contact;
 import contact.JettyMain;
 import contact.resource.ContactResource;
 import contact.service.ContactDao;
+=======
+import service.ContactDao;
+
+import entity.Contact;
+import entity.JettyMain;
+>>>>>>> 277beb88cb230902f6a4656fa331e45c985f9eea
 import contact.service.mem.MemContactDao;
 
 /**

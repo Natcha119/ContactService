@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>ContactService</name>
+=======
+	<name>RESTful</name>
+>>>>>>> 277beb88cb230902f6a4656fa331e45c985f9eea
 	<comment></comment>
 	<projects>
 	</projects>

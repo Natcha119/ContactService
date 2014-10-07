@@ -3,8 +3,14 @@ package contact.service.mem;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
+<<<<<<< HEAD
 import contact.entity.Contact;
 import contact.service.ContactDao;
+=======
+import service.ContactDao;
+
+import entity.Contact;
+>>>>>>> 277beb88cb230902f6a4656fa331e45c985f9eea
 
 /**
  * Data access object for saving and retrieving contacts.
@@ -15,9 +21,13 @@ import contact.service.ContactDao;
  * @author jim
  */
 public class MemContactDao implements ContactDao {
+<<<<<<< HEAD
 	/**The list of contact.*/
 	private List<Contact> contacts;
 	/**The id of contact.*/
+=======
+	private List<Contact> contacts;
+>>>>>>> 277beb88cb230902f6a4656fa331e45c985f9eea
 	private AtomicLong nextId;
 	
 	public MemContactDao() {

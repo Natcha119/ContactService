@@ -7,6 +7,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+<<<<<<< HEAD
+=======
+import service.ContactDao;
+import service.DaoFactory;
+
+>>>>>>> 277beb88cb230902f6a4656fa331e45c985f9eea
 import contact.service.*;
 import contact.service.mem.MemContactDao;
 
@@ -23,20 +29,28 @@ public class JpaDaoFactory extends DaoFactory {
 	private static final String PERSISTENCE_UNIT = "contacts";
 	/** instance of the entity DAO */
 	private ContactDao contactDao;
+<<<<<<< HEAD
 	/**The factory to create entity in each type.*/
 	private final EntityManagerFactory emf;
 	/**Manager of entity*/
 	private EntityManager em;
 	/**Logger to show what happen*/
+=======
+	private final EntityManagerFactory emf;
+	private EntityManager em;
+>>>>>>> 277beb88cb230902f6a4656fa331e45c985f9eea
 	private static Logger logger;
 	
 	static {
 		logger = Logger.getLogger(JpaDaoFactory.class.getName());
 	}
 	
+<<<<<<< HEAD
 	/*
 	 * Initialize the factory of JPA
 	 */
+=======
+>>>>>>> 277beb88cb230902f6a4656fa331e45c985f9eea
 	public JpaDaoFactory() {
 		emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
 		em = emf.createEntityManager();
