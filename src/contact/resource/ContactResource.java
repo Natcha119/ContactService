@@ -27,8 +27,8 @@ import javax.xml.bind.JAXBElement;
 import contact.entity.Contact;
 import contact.service.ContactDao;
 import contact.service.DaoFactory;
-import contact.service.mem.MemContactDao;
-import contact.service.mem.MemDaoFactory;
+//import contact.service.mem.MemContactDao;
+//import contact.service.mem.MemDaoFactory;
 
 
 

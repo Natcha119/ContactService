@@ -1,17 +1,13 @@
 package contact;
 
-
 import java.io.IOException;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 
 import contact.service.DaoFactory;
-
-import contact.resource.ContactResource;
 
 /**
  * <p>
@@ -66,7 +62,7 @@ public class JettyMain {
 	/** The default port to listen on. Typically 80 or 8080.  
 	 * On Ubuntu or MacOS if you are not root then you must use a port > 1024.
 	 */
-	static final int PORT = 8080;
+	static final int PORT = 8088;
 	private static Server server;
 
 	/**

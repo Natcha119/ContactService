@@ -1,11 +1,6 @@
 package contact.service;
 
-import org.objectweb.asm.commons.StaticInitMerger;
-
 import contact.service.DaoFactory;
-import contact.service.jpa.JpaDaoFactory;
-import contact.service.mem.MemContactDao;
-import contact.service.mem.MemDaoFactory;
 
 /**
  * Abstract class represent factory of DAO 
@@ -24,7 +19,21 @@ public abstract class DaoFactory {
 	 * @return recent DAO factory
 	 */
 	public static DaoFactory getInstance() {
-		if (factory == null) factory = new MemDaoFactory();
+		if(factory == null){
+			factory = new contact.service.mem.MemDaoFactory();
+			String factoryClass = System.getProperty("contact.daofactory");
+			if(factoryClass != null) {
+				try{
+					//load and instatiate this class of run time
+					ClassLoader loader = DaoFactory.class.getClassLoader();
+					factory = (DaoFactory)loader.loadClass(factoryClass).newInstance();
+				}
+				catch(InstantiationException | IllegalAccessException | ClassNotFoundException e){
+					e.printStackTrace();
+				}
+			}
+			factory = new contact.service.mem.MemDaoFactory();
+		}
 		return factory;
 	}
 	
